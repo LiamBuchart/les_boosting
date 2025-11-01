@@ -1,0 +1,9 @@
+*.exe
+wrf*
+
+*error*
+*out*
+/log/
+
+slurm*
+sim*
