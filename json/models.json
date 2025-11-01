@@ -1,0 +1,12 @@
+{
+    "models" : {
+        "names" : ["icon", "ecmwf", "hrdps", "gfs"],
+        "string" : "_hourly_data.csv",
+        "vars" : ["geopotential_height", "temperature", "relative_humidity", "wind_speed", "wind_direction"]
+    },
+
+    "real" : {
+        "name" : "real_sounding_CWVK",
+        "string" : "_20250926_00.csv"
+    }
+}

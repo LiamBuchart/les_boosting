@@ -1,0 +1,30 @@
+
+{
+"topo" : {
+    "mht": 600,
+    "hw": 1400,
+    "ridge_tops" : [10000, 17000, 24000],
+    "base_ht": 379  
+    },
+
+"sounding" : {
+    "P_sfc": 1018,
+    "T_sfc": 298.15,
+    "headers": ["height", "theta", "q", "U", "V"],
+    "headers_exps": ["1018", "298", "17", "Unnamed: 3", "Unamed: 4"]
+    },
+
+"grid_dimensions" : {
+    "ndx": 240,
+    "ndy": 160,
+    "dx": 150,
+    "dy": 150,
+    "sr_x": 10,
+    "sr_y": 10
+    },
+
+"timing" : {
+    "ttd": 5
+    }
+
+}
