@@ -7,3 +7,6 @@ wrf*
 
 slurm*
 sim*
+
+# MATLAB files
+*.m
