@@ -38,10 +38,13 @@ ax1.set_ylabel("Meridional Distance [km]")
 
 # shrink the second plot
 
-ax2.plot(hgt[0, :], color="k", label="Cross-section at Y=0")
+ax2.plot(hgt[0, :], color="k", linewidth=2,label="Cross-section at Y=0")
 ax2.set_xlabel("Zonal Distance [km]") 
 ax2.set_ylabel("Height (m)")
 ax2.legend()
+# add a thin red line with min_h
+ax2.axhline(min_h, color="r", linestyle="--", linewidth=1,
+            label="Minimum Height")
 
 # ticks in km
 x_ticks = np.arange(0, hgt.shape[1]+20, 20)
@@ -51,7 +54,7 @@ ax1.set_xticklabels(x_labels)
 ax2.set_xticks(x_ticks)
 ax2.set_xticklabels(x_labels)
 
-hticks = [min_h, 750, 1000]
+hticks = [min_h, 600, 800]
 ax2.set_yticks(hticks)
 ax2.set_yticklabels(hticks)
 
@@ -71,10 +74,11 @@ ax1.set_yticklabels(y_labels)
 fig.tight_layout() 
 cbar = fig.colorbar(ax1.images[0], ax=[ax1, ax2], 
                     orientation="vertical")
-ys =  np.arange(400, 1201, 100)
-# replace first tick with min height
-ys = np.delete(ys, 0)
-ys = np.insert(ys, 0, min_h)
+ys =  np.arange(100, 801, 100)
+# replace 400 with min_h
+ys = np.where(ys == 400, min_h, ys)
+#ys = np.delete(ys, 0)
+#ys = np.insert(ys, 0, min_h)
 
 cbar.set_ticks(ys)
 cbar.set_label("Height (m)")    

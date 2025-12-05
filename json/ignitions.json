@@ -1,0 +1,30 @@
+{
+    "Vertical Position" : {
+        "y1": 11985,
+        "y2": 12015
+    },
+
+    "Ignition 1" : {
+        "Name": "Center Ridgetop",
+        "x1": 16990,
+        "x2": 17010 
+    },
+
+    "Ignition 2" : {
+        "Name": "Center Lee Slope",
+        "x1": 18740,
+        "x2": 18760
+    },
+
+    "Ignition 3" : {
+        "Name": "Valley Bottom",
+        "x1": 20490,
+        "x2": 20510
+    },
+
+    "Ignition 4" : {
+        "Name": "Valley Upslope",
+        "x1": 22240,
+        "x2": 22260
+    }
+}

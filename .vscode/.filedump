@@ -1,0 +1,6 @@
+
+		begin
+      f = addfile("/home/lbuchart/les_boosting/exps/TEST-FIRE-LARGE/wrfout_fire_test.nc","r")
+      print(f)
+		end
+    

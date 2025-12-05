@@ -34,7 +34,8 @@ mht = config["topo"]["mht"]  # topography height
 hw = config["topo"]["hw"]  # topography half width
 ridges = config["topo"]["ridge_tops"]  # plaement of ridges
 
-base_elevation = config["topo"]["base_ht"]  # base elevation to add to all heights (Vernon sounding site)
+#base_elevation = config["topo"]["base_ht"]  # base elevation to add to all heights (Vernon sounding site)
+base_elevation = 150  # testing to get vernon sounding height in the valleys, rather than the edges
 
 # create a grid of zeros based on namelist size
 hgt = np.empty((we_n, sn_n), np.float32)

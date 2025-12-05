@@ -1,6 +1,6 @@
  &time_control
  run_days                            = 0,
- run_hours                           = 0,
+ run_hours                           = 1,
  run_minutes                         = 30,
  run_seconds                         = 0,
  start_year                          = 2025, 
@@ -15,27 +15,27 @@
  end_hour                            = 10,   
  end_minute                          = 30,   
  end_second                          = 00,   
- history_interval_s                  = 5,  
+ history_interval_s                  = 600,  
  frames_per_outfile                  = 1,    
  restart                             = .false.,
- restart_interval                    = 30  
- io_form_history                     = 2
- io_form_restart                     = 2
- io_form_input                       = 2
- io_form_boundary                    = 2
+ restart_interval                    = 1800,  
+ io_form_history                     = 2,
+ io_form_restart                     = 2,
+ io_form_input                       = 2,
+ io_form_boundary                    = 2,
 /
 
  &domains
- time_step                           = 0,
- time_step_fract_num                 = 1,
- time_step_fract_den                 = 2,
+ time_step                           = 1,
+ time_step_fract_num                 = 0,
+ time_step_fract_den                 = 1,
  max_dom                             = 1,
  s_we                                = 1,     
  e_we                                = 240,    
  s_sn                                = 1,     
  e_sn                                = 160,    
  s_vert                              = 1,     
- e_vert                              = 61,    
+ e_vert                              = 81,    
  dx                                  = 150,
  dy                                  = 150,
  ztop                                = 10000, 
@@ -51,63 +51,69 @@
  sr_y                                = 10,     
 /
 
+ &Surface initialization
+ sfc_full_init = .true.,
+ sfc_lu_index = 29,              ! Defines USGS surface category used for surface initialization based on LANDUSE.TBL (roughness, albedo etc)
+ sfc_tsk = 295.0,                ! Skin surface temperature [K]
+ sfc_tmn = 291.0,                ! Mean soil temperature [K]
+ fire_read_tsk = .true.,         ! read surface temeprature from file input_tsk
+
  &physics
- mp_physics                          = 0,     
+ mp_physics                          = 6,     
  ra_lw_physics                       = 0,     
  ra_sw_physics                       = 0,     
- radt                                = 30,    
+ radt                                = 0,    
  sf_sfclay_physics                   = 1,    
- sf_surface_physics                  = 1,     
+ sf_surface_physics                  = 0,     
  bl_pbl_physics                      = 0,   
  bldt                                = 0,    
  cu_physics                          = 0,     
  cudt                                = 0,    
- isfflx                              = 2,
- ifsnow                              = 0,
- icloud                              = 0,
- num_soil_layers                     = 0,
- mp_zero_out                         = 0,
+ isfflx                              = 1,
  /
 
  &fdda
  /
 
  &dynamics
- hybrid_opt                          = 0, 
+ hybrid_opt                          = 0,
  rk_ord                              = 3,
  diff_opt                            = 2,      
  km_opt                              = 2,      
- damp_opt                            = 2,
- zdamp                               = 400.,  
- dampcoef                            = 0.2,    
- khdif                               = 0.05,   
- kvdif                               = 0.05,  
+ damp_opt                            = 0,
+ zdamp                               = 5000.,  
+ dampcoef                            = 0.1,    
+ khdif                               = 1.,   
+ kvdif                               = 1.,  
  smdiv                               = 0.1,    
  emdiv                               = 0.01,   
- epssm                               = 0.5,    
+ epssm                               = 0.1,    
  mix_full_fields                     = .true., 
  non_hydrostatic                     = .true., 
+ use_theta_m                         = 1,
  h_mom_adv_order                     = 5,     
  v_mom_adv_order                     = 3,     
  h_sca_adv_order                     = 5,     
  v_sca_adv_order                     = 3,      
- time_step_sound                     = 20,     
+ time_step_sound                     = 6,     
  moist_adv_opt                       = 1,      
- scalar_adv_opt                      = 1,      
+ scalar_adv_opt                      = 1,  
+ w_damping                           = 0,
+ tke_heat_flux		                 = 0.2, !H/(rho*Cp) where H = Sensible heat flux , rho is air density (~ 1.2), and Cp (~ 1005)    
  tracer_opt                          = 3,    
  /
 
  &bdy_control
- periodic_x                          = .false.,
+ periodic_x                          = .true.,
  symmetric_xs                        = .false.,
  symmetric_xe                        = .false.,
- open_xs                             = .true., 
- open_xe                             = .true., 
- periodic_y                          = .false.,
+ open_xs                             = .false., 
+ open_xe                             = .false., 
+ periodic_y                          = .true.,
  symmetric_ys                        = .false.,
  symmetric_ye                        = .false.,
- open_ys                             = .true., 
- open_ye                             = .true., 
+ open_ys                             = .false., 
+ open_ye                             = .false., 
  /
 
  &grib2
@@ -131,8 +137,8 @@
  fire_ignition_end_x1 =   20000,        ! end points of ignition lines, in m from lower left corner
  fire_ignition_end_y1 =   12010,        ! end points of ignition lines, in m from lower left corner
  fire_ignition_radius1 =    5,        ! all within this radius will ignite, > fire mesh step
- fire_ignition_start_time1 = 1810,      ! sec for ignition from the start
- fire_ignition_end_time1  = 1840,       ! sec for ignition from the start
+ fire_ignition_start_time1 = 5460,      ! sec for ignition from the start
+ fire_ignition_end_time1  = 5490,       ! sec for ignition from the start
  fire_wind_height = 3.,                ! height to interpolate winds to for calculating fire spread rate 
 !
 ! verbosity
@@ -145,19 +151,19 @@
  fire_const_grnhfx = -1,        ! (W/s) if both >=0, use this flux (meant to be used when fire_const_time=ignition time) 
  fire_const_grnqfx = -1,        ! (W/s) if both >=0, use this flux (meant to be used when fire_const_time=ignition time) 
  fire_test_steps=0,             ! >0 = on first call, do specified number of steps and terminate (testing only)
- fire_mountain_type=0,          ! in ideal: 0=none, 1= hill, 2=EW ridge, 3=NS ridge
- fire_mountain_height=500.,     ! (m) ideal mountain height
- fire_mountain_start_x=1000.,   ! (m) coord of start of the mountain from lower left corder (just like ignition)
- fire_mountain_start_y=1100.,   ! (m) coord of start of the mountain from lower left corder (just like ignition)
- fire_mountain_end_x=1500.,     ! (m) coord of end of the mountain from lower left corder (just like ignition)
- fire_mountain_end_y=1400.,     ! (m) coord of end of the mountain from lower left corder (just like ignition)
+!fire_mountain_type=0,          ! in ideal: 0=none, 1= hill, 2=EW ridge, 3=NS ridge
+!fire_mountain_height=500.,     ! (m) ideal mountain height
+!fire_mountain_start_x=1000.,   ! (m) coord of start of the mountain from lower left corder (just like ignition)
+!fire_mountain_start_y=1100.,   ! (m) coord of start of the mountain from lower left corder (just like ignition)
+!fire_mountain_end_x=1500.,     ! (m) coord of end of the mountain from lower left corder (just like ignition)
+!fire_mountain_end_y=1400.,     ! (m) coord of end of the mountain from lower left corder (just like ignition)
  fire_read_atm_ht    = .true.,  ! read input_ht file to use as topography
  fire_topo_from_atm = 1          ! 0 = fire mesh topo set from fine-res data, 1 = populate by interpolating from atmosphere
  delt_perturbation  = 0.0,       ! Temperature perturbation for creating cold (negative) / warm (positive) bubble [K], 0 turns it off
- !xrad_perturbation = 10000.0,   ! Horizontal radius of the bubble in E-W direction [m]
- !yrad_perturbation = 10000.0,   ! Horizontal radius of the bubble in N-S direction [m]
- !zrad_perturbation = 1500.0,    ! Vertical radius of the bubble [m]
- !hght_perturbation = 1500.0,    ! Perturbation height - height at which the warm/cold bubble will be suspended [m]
+!xrad_perturbation = 10000.0,   ! Horizontal radius of the bubble in E-W direction [m]
+!yrad_perturbation = 10000.0,   ! Horizontal radius of the bubble in N-S direction [m]
+!zrad_perturbation = 1500.0,    ! Vertical radius of the bubble [m]
+!hght_perturbation = 1500.0,    ! Perturbation height - height at which the warm/cold bubble will be suspended [m]
 !
 ! stretched grid variables
 ! 

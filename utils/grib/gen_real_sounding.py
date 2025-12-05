@@ -28,7 +28,7 @@ p = obs["pressure"].values * units.hPa
 T = obs["temperature"].values * units.degC
 Td = obs["dewpoint"].values * units.degC 
 
-wind_speed = obs["speed"].values * units.knots
+wind_speed = obs["speed"].values * units('m/s')
 wind_dir = obs["direction"].values * units.degrees
 u, v = mpcalc.wind_components(wind_speed, wind_dir) 
 
@@ -38,15 +38,16 @@ Q = mpcalc.mixing_ratio_from_relative_humidity(p, T, rh)
 Q = Q.to("g/kg")
 
 P0 = p[0]
-T0 = T[0]
+T0 = T[0] 
 Q0 = Q[0]                  
 
 input_sounding = pd.DataFrame(columns=["height", "theta", "q", "U", "V"])
 
 # overwrite the base input_sounding dateframe to account for first row formatting
 # note that the first row of height is actually the surface pressure
+# recall that we need to convert surface temp to a potential [K]
 sfc_data = {"height":[P0.magnitude], 
-            "theta":[T0.magnitude], 
+            "theta":[T0.magnitude + 273.15], 
             "q":[int(Q0.magnitude)], 
             "U":[np.nan], "V":[np.nan]}
 input_sounding = pd.DataFrame(sfc_data, index=[0])
