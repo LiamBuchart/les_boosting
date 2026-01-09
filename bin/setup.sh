@@ -6,6 +6,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
+#SBATCH --job-name=set-real-pos1
 
 ml StdEnv/2023  gcc/12.3  openmpi/4.1.5
 module load wrf/4.7.1

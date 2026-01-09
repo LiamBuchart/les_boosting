@@ -36,8 +36,10 @@ ax1.set_title("Terrain Height Field")
 ax1.set_xlabel("Zonal Distance [km]")
 ax1.set_ylabel("Meridional Distance [km]")
 
-# shrink the second plot
+# add a coutour of the of min_h
+ax1.contour(hgt, levels=[min_h], colors="black", linewidths=2)
 
+# shrink the second plot
 ax2.plot(hgt[0, :], color="k", linewidth=2,label="Cross-section at Y=0")
 ax2.set_xlabel("Zonal Distance [km]") 
 ax2.set_ylabel("Height (m)")
@@ -86,6 +88,6 @@ cbar.set_label("Height (m)")
 # remove the xtick labels from the first plot
 plt.setp(ax1.get_xticklabels(), visible=False)
 
-plt.savefig("terrain_height_field.png", dpi=300)
+plt.savefig("./FIGURES/terrain_height_field.png", dpi=300)
 plt.show()
 # %%

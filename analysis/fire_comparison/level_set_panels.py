@@ -13,6 +13,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import colormaps
 import metpy.calc as mpcalc
+from context import json_dir
+import json
 
 from file_funcs import (setup_script, dist_from_ridge)
 
@@ -21,19 +23,41 @@ from wrf import (interpline, extract_times, get_cartopy,
                  interplevel, cartopy_xlim, cartopy_ylim)
 
 ##########
+exp_list = "Fuel_Moisture"
 
 # for real experiments this data will be stores in a json file
-exps = ["TEST-REAL-BRUSH/", "TEST-REAL-SPOTTING/", "TEST-FIRE-LARGE/", 
-        "TEST-REAL-VALLEY/", "TEST-VALLEY-LARGE/", "TEST-LEE-SLOPE/"]
-labels = ["Brush Fire", "Spotting Grass", "Large Fire Ignition", 
-          "Valley Fire", "Valley Large", "Lee Slope"]
+# for real experiments this data will be stores in a json file
+with open(str(json_dir) + "names.json") as f:
+    experiment_info = json.load(f)
+
+exp_suite = experiment_info[exp_list]["Suite_Name"]    
+exps = experiment_info[exp_list]["Dir_Names"]
+labels = experiment_info[exp_list]["Plot_Names"]
 
 comp_save_path = "/home/lbuchart/les_boosting/analysis/FIGURES/FIRE_COMPARISON/"
-##########
 
 # initialize the figure and axes (manual based on experiments)
 nrows = 2
-ncols = 3
+ncols = 4
+##########
+
+def limitcontour(ax, x,y,z,clevs, xlim=None, ylim=None, **kwargs):
+    # function to mask an array for nicer contour labelling
+    mask = np.ones(x.shape).astype(bool)
+    if xlim:
+        mask = mask & (x>=xlim[0]) & (x<=xlim[1])
+    if ylim:
+        mask = mask & (y>=ylim[0]) & (y<=ylim[1])
+    xm = np.ma.masked_where(~mask , x)
+    ym = np.ma.masked_where(~mask , y)
+    zm = np.ma.masked_where(~mask , z)
+
+    cs = ax.contour(xm,ym,zm, clevs,**kwargs)
+    if xlim: ax.set_xlim(xlim) #Limit the x-axis
+    if ylim: ax.set_ylim(ylim)
+    ax.clabel(cs,inline=True,fmt='%3.0d')
+
+# set up the figure
 fig, axs = plt.subplots(nrows, ncols, figsize=(12, 10))  #, constrained_layout=True)
 
 count = 0
@@ -80,7 +104,8 @@ for ee in exps:
         fire_lon = fxlons[0, min_lon]
         
         # defined a bounding box around the fire
-        bbox = [fire_lon-600, fire_lon+600, fire_lat-400, fire_lat+400]
+        if ii == 2: 
+            bbox = [fire_lon-100, fire_lon+10000, fire_lat-2500, fire_lat+5000]
 
         # Get the cartopy mapping object
         cart_proj = get_cartopy(ter) 
@@ -103,8 +128,6 @@ for ee in exps:
         axs[row, col].set_ylim(bbox[2], bbox[3]) 
         axs[row, col].set_title(plot_label, fontsize=16)
         
-        
-
 fig.text(0.5, 0.04, 'Distance from Lower Left [m]', 
          ha='center', fontsize=16)
 fig.text(0.04, 0.5, 'Distance from Lower Left [m]', 
@@ -113,7 +136,7 @@ fig.text(0.04, 0.5, 'Distance from Lower Left [m]',
 # save the figure
 plt.suptitle("Fire Front Evolution Comparison", fontsize=18)
 
-plt.savefig(comp_save_path + "fire_comparison_level_set_panels")
+plt.savefig(comp_save_path + f"{exp_suite}_fire_comparison_level_set_panels")
 plt.close()
 
 print("Made a nice plots perhaps? We will find out...")       

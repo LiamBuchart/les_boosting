@@ -26,7 +26,7 @@ from wrf import (interpline, extract_times, get_cartopy,
 
 ## USER INPUTS ##
 # option
-exp = "TEST-FIRE-LARGE" + "/"  # name of the experiment you are plotting
+exp = "TEST-REAL-POS1" + "/"  # name of the experiment you are plotting
 lev = 10  # height in m that you want wind velocity perturbation
 
 start = (0, 80)

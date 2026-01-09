@@ -32,7 +32,7 @@ from wrf import (getvar, xy, interp2dxy, interpline,
 
 ## USER INPUTS ##
 # options [
-exp = "TEST-REAL-BRUSH" + "/" # name of the experiment you want to plot
+exp = "TEST-REAL-POS2" + "/" # name of the experiment you want to plot
 start = (0, 80)
 end = (-1, 80)
 
@@ -124,8 +124,8 @@ for ii in range(0, len(wrfin)):
     axs[0].set_xticks(np.arange(-18000, 19000, 3000))
     axs[1].set_xticks(np.arange(-18000, 19000, 3000))
     
-    axs[0].set_xlim([-6000, 6000])
-    axs[1].set_xlim([-6000, 6000])
+    axs[0].set_xlim([-3000, 10000])
+    axs[1].set_xlim([-3000, 10000])
 
     axs[0].set_ylabel("Height AGL [m]", fontsize=10)
     axs[1].set_ylabel("Terrain Height [m]", fontsize=10)

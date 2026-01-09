@@ -5,6 +5,7 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
+#SBATCH --job-name=run-real-pos1
 
 ml StdEnv/2023 intel/2025.2.0 openmpi/4.1.5
 module load wrf/4.7.1
@@ -31,6 +32,7 @@ mv wrf.log log/
 
 mkdir -p output
 mv wrfout* output/
+mv wrfrst* output/
 
 #rm -r namelist.input
 #ln -sv namelist.input.restart namelist.input

@@ -1,0 +1,15 @@
+{
+    "Testing" : {
+        "Suite_Name": "Testing",
+        "Dir_Names": ["TEST-REAL-POS1", "TEST-REAL-POS2", "TEST-REAL-POS3", "TEST-REAL-POS4"],
+        "Plot_Names": ["Ridge Top", "Lee Slope", "Valley Bottom", "Upslope"]
+    },
+
+    "Fuel_Moisture" : {
+        "Suite_Name": "Fuel Moisture",
+        "Dir_Names": ["TEST-REAL-0.15", "TEST-REAL-0.14", "TEST-REAL-0.1375", 
+                      "TEST-REAL-0.135","TEST-REAL-0.13", "TEST-REAL-0.12",
+                      "TEST-REAL-0.11", "TEST-REAL-0.10"],
+        "Plot_Names": ["15%", "14%", "13.75", "13.5%", "13%", "12%", "11%", "10%"]
+    }
+}

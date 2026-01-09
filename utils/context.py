@@ -25,8 +25,10 @@ root_dir = str(root_dir)
 # get paths for important directories
 name_dir = root_dir + "/exps/"
 data_dir = root_dir + "/observations/"
-script_dir = root_dir + "/scripts/"
+script_dir = root_dir + "/analysis/"
 utils_dir = root_dir + "/utils/"
+pertubation_dir = root_dir + "/utils/perturbations/"
 json_dir = root_dir + "/json/"
+output_dir = base_path + "/scratch/les_boosting_output/"
 
 sys.path.insert(0, str(root_dir))

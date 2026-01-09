@@ -22,13 +22,17 @@ from wrf import (interpline, extract_times, get_cartopy,
                  interplevel, cartopy_xlim, cartopy_ylim)
 
 ##########
+exp_list = "Fuel_Moisture"
 
 # for real experiments this data will be stores in a json file
-exps = ["TEST-REAL-BRUSH/", "TEST-REAL-FIRE/", "TEST-REAL-SPOTTING/", "TEST-FIRE-LARGE/", 
-        "TEST-REAL-VALLEY/", "TEST-SPOTTING-LOW/", "TEST-VALLEY-LARGE/",
-        "TEST-LEE-SLOPE/"]
-labels = ["Brush Fire", "Test Grass", "Spotting Grass", "Large Fire Ignition", 
-          "Valley Fire", "Spotting Low", "Valley Large", "Lee Slope"]
+with open(str(json_dir) + "names.json") as f:
+    experiment_info = json.load(f)
+
+# return name of the set of experiments
+exp_suite = experiment_info[exp_list]["Suite_Name"]
+    
+exps = experiment_info[exp_list]["Dir_Names"]
+labels = experiment_info[exp_list]["Plot_Names"]
 
 comp_save_path = "/home/lbuchart/les_boosting/analysis/FIGURES/FIRE_COMPARISON/"
 ##########
@@ -39,10 +43,13 @@ with open(str(json_dir) + "config.json") as f:
     
 dx = config["grid_dimensions"]["dx"]  # grid dimensions
 dy = config["grid_dimensions"]["dy"]  # grid dimensions
+sr_x = config["grid_dimensions"]["sr_x"]  # grid dimensions
+sr_y = config["grid_dimensions"]["sr_y"]
 
 # loop through experiments to get areas into a dataframe
 fire_areas = pd.DataFrame(columns=exps)
 for ee in exps:
+    print(ee)
     path, save_path, relevant_files, wrfin = setup_script(exp=ee)
     
     for ii in range(0, len(wrfin)):
@@ -50,18 +57,17 @@ for ee in exps:
         ncfile = wrfin[ii]
         
         # get the fire area
-        area = getvar(ncfile, "FS_FIRE_AREA", meta=True)
+        area = getvar(ncfile, "FIRE_AREA", meta=True)
         
-        # convert to m^2
-        area = to_np(area) * (dx * dy)
+        # convert to m^2 then to ha
+        area = to_np(area) * ((dx/sr_x) * (dy/sr_y)) / 10000
         # convert to ha
-        area = area / 10000
+        #area = area / 10000
         
         # put into a dataframe
-        fire_areas.loc[ii, ee] = np.sum(area)
-        
+        fire_areas.loc[ii, ee] = np.sum(area) 
+         
         ct = extract_times(ncfile, timeidx=0)
-        
         # append the times (some varying experiment lengths)
         fire_areas.loc[ii, 'Time'] = str(ct)[11:16]  # only keep hh:mm
 
@@ -83,18 +89,18 @@ for ee, lab in zip(exps, labels):
 plt.xticks(rotation=45)
 # clean y-axis limits and labels
 ylabels = np.arange(0, 140, 10)
-plt.yticks(ylabels)
-plt.ytick_labels = [str(int(yy)) for yy in ylabels]
-plt.gca().set_yticklabels(plt.ytick_labels)
-plt.ylim(bottom=0)
+#plt.yticks(ylabels)
+#plt.ytick_labels = [str(int(yy)) for yy in ylabels]
+#plt.gca().set_yticklabels(plt.ytick_labels)
+plt.ylim([0, 2000])
 plt.xlim([fire_areas["Time"].iloc[0], fire_areas["Time"].iloc[-1]])
 
 # add labels and legend
 plt.legend()
 plt.xlabel("Time [LT]", fontsize=12)
-plt.ylabel("Fire Area [m^2]", fontsize=12)
+plt.ylabel("Fire Area [ha]", fontsize=12)
 plt.title("Fire Area Comparison", fontsize=14)
 plt.tight_layout()
-plt.savefig(comp_save_path + "fire_area_comparison")
+plt.savefig(comp_save_path + f"{exp_suite}_fire_area_comparison")
     
 print("Complete") 

@@ -27,7 +27,7 @@ from wrf import (interpline, extract_times, get_cartopy,
 
 ## USER INPUTS ##
 # option
-exp = "TEST-VALLEY-LARGE" + "/"  # name of the experiment you are plotting
+exp = "TEST-REAL-POS1" + "/"  # name of the experiment you are plotting
 
 start = (0, 80)
 end = (-1, 80) 

@@ -16,7 +16,7 @@ import json
 
 author="lbuchart"
 outfile_name = "input_ht" 
-fuel_cat = 1  # one of the Anderson fuel categories used in WRF
+fuel_cat = 2  # one of the Anderson fuel categories used in WRF
 
 # load grid dimensions which are saved in the context file
 with open(str(json_dir) + "config.json") as f:
@@ -35,7 +35,7 @@ hw = config["topo"]["hw"]  # topography half width
 ridges = config["topo"]["ridge_tops"]  # plaement of ridges
 
 #base_elevation = config["topo"]["base_ht"]  # base elevation to add to all heights (Vernon sounding site)
-base_elevation = 150  # testing to get vernon sounding height in the valleys, rather than the edges
+base_elevation = 210  # testing to get vernon sounding height in the valleys, rather than the edges
 
 # create a grid of zeros based on namelist size
 hgt = np.empty((we_n, sn_n), np.float32)

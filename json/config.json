@@ -9,7 +9,7 @@
 
 "sounding" : {
     "P_sfc": 1018,
-    "T_sfc": 298.15,
+    "T_sfc": 293,
     "headers": ["height", "theta", "q", "U", "V"],
     "headers_exps": ["1018", "298", "17", "Unnamed: 3", "Unamed: 4"]
     },
