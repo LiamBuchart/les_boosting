@@ -11,7 +11,7 @@
 ml StdEnv/2023  gcc/12.3  openmpi/4.1.5
 module load wrf/4.7.1
 
-exp=TEST-REAL-POS1
+exp=HRDPS-POS1
 cd ../exps/${exp}
 
 mpirun -np 1 ./ideal.exe

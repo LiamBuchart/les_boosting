@@ -5,12 +5,13 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
-#SBATCH --job-name=run-hrdps-pos1
+#SBATCH --job-name=run_unperturb
 
 ml StdEnv/2023 intel/2025.2.0 openmpi/4.1.5
 module load wrf/4.7.1
 
-exp=REAL-POS1
+exp=TEST-REAL-POS1
+perturb=Unperturbed  # Unperturbed or T10, T15, .., U10, U15, ..., V10, ..., QVAPOR10, ...
 cd ../exps/${exp}
 edir=$(pwd)
 
@@ -30,10 +31,9 @@ mkdir -p log
 mv rsl.* log/
 mv wrf.log log/
 
-mkdir -p output
-mkdir -p RESTART
-mv wrfout* output/
-mv wrfrst* RESTART/
+mkdir -p output_${perturb}/
+mv wrfout* output_${perturb}/
+#mv wrfrst* output/
 
 #rm -r namelist.input
 #ln -sv namelist.input.restart namelist.input

@@ -19,4 +19,8 @@ Default dead fuel moisture content in set to 0.18 (18%) in fuel Category 2. Howe
 > Based only on the DMC the moisture content of the loosely compacted organic layer is ~25%.
 > Based only on the DC the mositure content of the deep, compact, organic layers are ~62%.
 
-By the observation period on Sep 27, the fire was 147 ha, closely corresponding to the 14% fuel moisture content run. 
+By the observation period on Sep 27, the fire was 147 ha, closely corresponding to the 14% fuel moisture content run.
+
+Given that the two fires had similar burn periods and sufficiently complex terrain, a total fuel moisture of 14% is used. This corresponds well to the burned area comparison and a composite of the FFMC, DMC, and DC fuel moistures. 
+
+Pre-perturbation output is stored in the base output directory (/home/lbuchart/scratch/les_boosting_output/{exp}/output/) all post-restart output is stored in a subdirectory titled either UNPERTURBED or is named after the variable that is perturbed and the random seed that is used for the pertubation.

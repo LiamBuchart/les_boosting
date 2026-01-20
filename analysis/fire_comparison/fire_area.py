@@ -23,6 +23,7 @@ from wrf import (interpline, extract_times, get_cartopy,
 
 ##########
 exp_list = "Fuel_Moisture"
+perturb = "T10"
 
 # for real experiments this data will be stores in a json file
 with open(str(json_dir) + "names.json") as f:
@@ -50,7 +51,7 @@ sr_y = config["grid_dimensions"]["sr_y"]
 fire_areas = pd.DataFrame(columns=exps)
 for ee in exps:
     print(ee)
-    path, save_path, relevant_files, wrfin = setup_script(exp=ee)
+    path, save_path, relevant_files, wrfin = setup_script(exp=ee, perturbation=perturb)
     
     for ii in range(0, len(wrfin)):
         # import the file in a readable netcdf format

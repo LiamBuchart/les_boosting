@@ -1,0 +1,13 @@
+{
+    "Initial Ensemble" : {
+        "Name"  : "Initial Ensemble",
+        "Members" : ["Real", "HRDPS", "GFS", "ECMWF", "ICON"]
+    },
+
+
+    "Boosted Ensemble" : {
+        "Name"  : "Boosted Ensemble",
+        "Variables" : ["T", "U", "V", "QVAPOR"],
+        "Perturbations" : [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
+    }
+}

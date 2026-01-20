@@ -17,8 +17,9 @@ from context import name_dir, script_dir, json_dir, output_dir
 
 # # # # # # # # # #
 
-def setup_script(exp, ):
+def setup_script(exp, perturbation):
     path = output_dir + exp + "/output/"
+    p_path = output_dir + exp + f"/perturbations_{perturbation}/"
 
     save_path = script_dir + "FIGURES/" + exp
     if not os.path.exists(save_path):
@@ -26,9 +27,13 @@ def setup_script(exp, ):
     
     # create list of file names (sorted) 
     all_files = sorted(os.listdir(path))
+    p_all_files = sorted(os.listdir(p_path))
 
     # get wrfoutfiles
-    relevant_files = get_wrfout(all_files)
+    base_files = get_wrfout(all_files)
+    p_relevant_files = get_wrfout(p_all_files)
+    
+    relevant_files = sorted(base_files + p_relevant_files)
     print(relevant_files)
 
     # import all datasets
