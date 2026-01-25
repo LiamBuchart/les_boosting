@@ -1,0 +1,3 @@
+[console_scripts]
+RUST = RUST.__main__:main
+

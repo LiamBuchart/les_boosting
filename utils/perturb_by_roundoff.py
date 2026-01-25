@@ -25,7 +25,7 @@ error = 10e-15
 seed_value = 10 # random seed 10 different perturbations [10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
 
 #### END USER INPUT #####
-full_path = f"{output_dir}/{exp}/output/" # name of the input
+full_path = f"{output_dir}/{exp}/RESTART/" # name of the input
 
 # get all restart files
 restart_files = []

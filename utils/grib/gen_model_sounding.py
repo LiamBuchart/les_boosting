@@ -15,7 +15,7 @@ from metpy.units import units
 from context import json_dir
 
 ##### User Input #####
-model_select = "gfs"  # select model from models.json
+model_select = "icon"  # select model from models.json
 ##### End User Input #####
 
 with open(json_dir + 'models.json') as f:

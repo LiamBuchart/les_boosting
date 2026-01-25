@@ -23,7 +23,7 @@ from wrf import (interpline, extract_times, get_cartopy,
                  interplevel, cartopy_xlim, cartopy_ylim)
 
 ##########
-exp_list = "Fuel_Moisture"
+exp_list = "Initial_Ensemble_POS3"
 
 # for real experiments this data will be stores in a json file
 # for real experiments this data will be stores in a json file
@@ -38,7 +38,7 @@ comp_save_path = "/home/lbuchart/les_boosting/analysis/FIGURES/FIRE_COMPARISON/"
 
 # initialize the figure and axes (manual based on experiments)
 nrows = 2
-ncols = 4
+ncols = 3
 ##########
 
 def limitcontour(ax, x,y,z,clevs, xlim=None, ylim=None, **kwargs):
@@ -74,7 +74,7 @@ for ee in exps:
     
     # get the terrain height - just get once
     ter = getvar(wrfin[0], "ter", meta=True)
-    ter_heights = np.arange(150, 850, 10)
+    ter_heights = np.arange(150, 850, 50)
     
     # get fire coords just once
     lats, lons = latlon_coords(ter)
@@ -105,7 +105,7 @@ for ee in exps:
         
         # defined a bounding box around the fire
         if ii == 2: 
-            bbox = [fire_lon-100, fire_lon+10000, fire_lat-2500, fire_lat+5000]
+            bbox = [fire_lon-2500, fire_lon+5000, fire_lat-2500, fire_lat+2500]
 
         # Get the cartopy mapping object
         cart_proj = get_cartopy(ter) 
@@ -135,6 +135,9 @@ fig.text(0.04, 0.5, 'Distance from Lower Left [m]',
         
 # save the figure
 plt.suptitle("Fire Front Evolution Comparison", fontsize=18)
+
+# add _ to all blank spaces in experiment suite name
+exp_suite = exp_suite.replace(" ", "_")
 
 plt.savefig(comp_save_path + f"{exp_suite}_fire_comparison_level_set_panels")
 plt.close()

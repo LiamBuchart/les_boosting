@@ -22,8 +22,8 @@ from wrf import (interpline, extract_times, get_cartopy,
                  interplevel, cartopy_xlim, cartopy_ylim)
 
 ##########
-exp_list = "Fuel_Moisture"
-perturb = "T10"
+exp_list = "Initial_Ensemble_POS2"
+#perturb = "T10"
 
 # for real experiments this data will be stores in a json file
 with open(str(json_dir) + "names.json") as f:
@@ -51,7 +51,7 @@ sr_y = config["grid_dimensions"]["sr_y"]
 fire_areas = pd.DataFrame(columns=exps)
 for ee in exps:
     print(ee)
-    path, save_path, relevant_files, wrfin = setup_script(exp=ee, perturbation=perturb)
+    path, save_path, relevant_files, wrfin = setup_script(exp=ee) #, perturbation=perturb)
     
     for ii in range(0, len(wrfin)):
         # import the file in a readable netcdf format
@@ -93,7 +93,7 @@ ylabels = np.arange(0, 140, 10)
 #plt.yticks(ylabels)
 #plt.ytick_labels = [str(int(yy)) for yy in ylabels]
 #plt.gca().set_yticklabels(plt.ytick_labels)
-plt.ylim([0, 2000])
+#plt.ylim([0, 50])
 plt.xlim([fire_areas["Time"].iloc[0], fire_areas["Time"].iloc[-1]])
 
 # add labels and legend
@@ -102,6 +102,10 @@ plt.xlabel("Time [LT]", fontsize=12)
 plt.ylabel("Fire Area [ha]", fontsize=12)
 plt.title("Fire Area Comparison", fontsize=14)
 plt.tight_layout()
+
+# add _ to all blank spaces in experiment suite name
+exp_suite = exp_suite.replace(" ", "_")
+
 plt.savefig(comp_save_path + f"{exp_suite}_fire_area_comparison")
     
 print("Complete") 

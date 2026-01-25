@@ -24,7 +24,7 @@ from wrf import (interpline, extract_times, get_cartopy,
                  interplevel, cartopy_xlim, cartopy_ylim)
 
 ##########
-exp_list = "Fuel_Moisture"
+exp_list = "Initial_Ensemble_POS1"
 
 # for real experiments this data will be stores in a json file
 with open(str(json_dir) + "names.json") as f:
@@ -112,6 +112,9 @@ plt.ylabel("Flame Length [m]: Dashed Lines", fontsize=16)
 # set title
 plt.xlabel("Time [LT]", fontsize=16)
 plt.title("Flame Length and Rate of Spread Comparison", fontsize=16)
+
+# add _ to all blank spaces in experiment suite name
+exp_suite = exp_suite.replace(" ", "_")
 
 plt.savefig(comp_save_path + f"{exp_suite}_flame_length_ros_comparison.png")
 print("Done...")

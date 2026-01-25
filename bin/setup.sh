@@ -6,12 +6,12 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
-#SBATCH --job-name=set-real-pos1
+#SBATCH --job-name=set-real-pos3
 
 ml StdEnv/2023  gcc/12.3  openmpi/4.1.5
 module load wrf/4.7.1
 
-exp=HRDPS-POS1
+exp=REAL-POS3
 cd ../exps/${exp}
 
 mpirun -np 1 ./ideal.exe

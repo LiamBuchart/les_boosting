@@ -11,5 +11,23 @@
                       "TEST-REAL-0.135","TEST-REAL-0.13", "TEST-REAL-0.12",
                       "TEST-REAL-0.11", "TEST-REAL-0.10"],
         "Plot_Names": ["15%", "14%", "13.75", "13.5%", "13%", "12%", "11%", "10%"]
+    },
+
+    "Initial_Ensemble_POS1" : {
+        "Suite_Name": "Initial Ensemble POS1",
+        "Dir_Names" : ["ECMWF-POS1", "GFS-POS1", "HRDPS-POS1", "ICON-POS1", "REAL-POS1"],
+        "Plot_Names" : ["ECMWF", "GFS", "HRDPS", "ICON", "Real"]
+    },
+
+    "Initial_Ensemble_POS2" : {
+        "Suite_Name": "Initial Ensemble POS2",
+        "Dir_Names" : ["ECMWF-POS2", "GFS-POS2", "HRDPS-POS2", "ICON-POS2", "REAL-POS2"],
+        "Plot_Names" : ["ECMWF", "GFS", "HRDPS", "ICON", "Real"]
+    },
+
+    "Initial_Ensemble_POS3" : {
+        "Suite_Name": "Initial Ensemble POS3",
+        "Dir_Names" : ["ECMWF-POS3", "GFS-POS3", "HRDPS-POS3", "ICON-POS3", "REAL-POS3"],
+        "Plot_Names" : ["ECMWF", "GFS", "HRDPS", "ICON", "Real"]
     }
 }

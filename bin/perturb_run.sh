@@ -5,12 +5,12 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
-#SBATCH --job-name=run_unperturb
+#SBATCH --job-name=real_unperturb
 
 ml StdEnv/2023 intel/2025.2.0 openmpi/4.1.5
 module load wrf/4.7.1
 
-exp=TEST-REAL-POS1
+exp=REAL-POS1
 perturb=Unperturbed  # Unperturbed or T10, T15, .., U10, U15, ..., V10, ..., QVAPOR10, ...
 cd ../exps/${exp}
 edir=$(pwd)

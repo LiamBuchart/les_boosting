@@ -5,12 +5,12 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=lbuchart@eoas.ubc.ca
 #SBATCH --account=def-rstull
-#SBATCH --job-name=run-hrdps-pos1
+#SBATCH --job-name=run-real-pos3
 
 ml StdEnv/2023 intel/2025.2.0 openmpi/4.1.5
 module load wrf/4.7.1
 
-exp=REAL-POS1
+exp=REAL-POS3
 cd ../exps/${exp}
 edir=$(pwd)
 
